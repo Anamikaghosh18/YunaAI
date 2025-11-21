@@ -10,6 +10,9 @@ venv/
 .env
 .env.*
 
+# static 
+static/
+
 # IDE / Editor files
 .vscode/
 .idea/

@@ -13,6 +13,7 @@ userInput.addEventListener("keypress", (e) => {
 });
 resetBtn.addEventListener("click", () => (chatArea.innerHTML = ""));
 
+
 // ---- Speech Recognition ----
 let recognition;
 if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {

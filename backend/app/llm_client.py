@@ -1,35 +1,37 @@
-import os
-
 from google import genai
-from google.genai import types 
+from google.genai import types
+from .personas import get_persona_prompt  # <-- import your persona helper
 
-def query_gemini(prompt: str) -> str:
-    MODEL_NAME = "gemini-2.5-flash" 
+
+def query_gemini(prompt: str, persona_name: str = "default") -> str:
+    MODEL_NAME = "gemini-2.5-flash"
+
     if not prompt or prompt.isspace():
         return "Sorry, I didn't receive any text to process. Please try again."
 
+    # Get persona system prompt
+    persona_instruction = get_persona_prompt(persona_name)
+
     try:
         client = genai.Client()
+
         config = types.GenerateContentConfig(
-            # System instruction sets the LLM's persona/role
-            system_instruction="You are a helpful and concise assistant.",
+            system_instruction=persona_instruction,  # persona now applied
             temperature=0.7,
-            max_output_tokens=200 
+            max_output_tokens=200
         )
 
-        
+        # Format final content structure
+        full_prompt = f"User: {prompt}\nRespond in the style described."
+
         response = client.models.generate_content(
             model=MODEL_NAME,
-            contents=prompt,
+            contents=full_prompt,
             config=config
         )
 
-        
-        return response.text 
+        return response.text.strip()
 
     except Exception as e:
-        # 6. Log and return a descriptive error message on failure
-        error_message = f"Gemini API error occurred: {e}"
-        print(f"DEBUG: {error_message}")
-        return f"I'm sorry, I encountered an internal error. {e}"
-
+        print(f"Gemini API error: {e}")
+        return f"I'm sorry, something went wrong processing your request: {e}"

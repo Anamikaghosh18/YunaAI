@@ -4,25 +4,17 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.concurrency import run_in_threadpool
 from pathlib import Path
 from fastapi.middleware.cors import CORSMiddleware
-
+from backend.app.route.auth import router as auth_router
+from backend.app.models import Base
+from backend.app.database import engine
 from backend.app.llm_client import query_gemini
 from backend.app.tts_murf import tts_generate
-
-# ---- Import personas ----
-# from backend.app.personas.friend import FriendlyAssistant
-# from backend.app.personas.motivator import RecruiterPersona
-# from backend.app.personas.tutor import TutorPersona
 
 
 app = FastAPI()
 
-# ---- Persona registry ----
-# PERSONAS = {
-#     "friend": FriendlyAssistant(),
-#     "recruiter": RecruiterPersona(),
-#     "tutor": TutorPersona()
-# }
-
+# Create tables if they don't exist
+Base.metadata.create_all(bind=engine)
 
 # ---- CORS ----
 app.add_middleware(
@@ -32,6 +24,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ---- Register auth router ----
+app.include_router(auth_router, prefix="/auth", tags=["auth"])
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -62,30 +57,29 @@ async def speak_endpoint(request: Request):
         body = await request.json()
         user_text = body.get("text", "").strip()
         persona_key = body.get("persona", "friendly")  # default persona
-        persona = PERSONAS.get(persona_key, PERSONAS["friendly"])
 
     except Exception:
         raw = await request.body()
         user_text = raw.decode("utf-8").strip()
-        persona = PERSONAS["friendly"]
+        persona_key = "friendly"
 
     if not user_text:
         return JSONResponse({"error": "No message received"}, status_code=400)
 
     try:
         print(f"User text: {user_text}")
-        print(f"Using persona: {persona.name}")
+        print(f"Using persona: {persona_key}")
 
         # ---- LLM Response with persona ----
         llm_response = await run_in_threadpool(query_gemini, user_text, persona_key)
         print("AI:", llm_response)
 
-        # ---- TTS Generation with persona voice ----
-        filename = await run_in_threadpool(tts_generate, llm_response, persona)
+        # ---- TTS Generation ----
+        filename = await run_in_threadpool(tts_generate, llm_response)
         print("Generated audio:", filename)
 
         return JSONResponse({
-            "persona": persona.name,
+            "persona": persona_key,
             "text": llm_response,
             "audio_url": f"/audio/{filename}"
         })

@@ -9,19 +9,19 @@ from backend.app.llm_client import query_gemini
 from backend.app.tts_murf import tts_generate
 
 # ---- Import personas ----
-from backend.app.personas.friend import FriendlyAssistant
-from backend.app.personas.motivator import RecruiterPersona
-from backend.app.personas.tutor import TutorPersona
+# from backend.app.personas.friend import FriendlyAssistant
+# from backend.app.personas.motivator import RecruiterPersona
+# from backend.app.personas.tutor import TutorPersona
 
 
 app = FastAPI()
 
 # ---- Persona registry ----
-PERSONAS = {
-    "friend": FriendlyAssistant(),
-    "recruiter": RecruiterPersona(),
-    "tutor": TutorPersona()
-}
+# PERSONAS = {
+#     "friend": FriendlyAssistant(),
+#     "recruiter": RecruiterPersona(),
+#     "tutor": TutorPersona()
+# }
 
 
 # ---- CORS ----

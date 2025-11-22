@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yuna AI</title>
     <link rel="stylesheet" href="/static/style.css" />
+    <link rel="icon" type="image/png" href="static/images/favicon.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -14,33 +15,38 @@
   <body>
     <!-- Sidebar -->
     <aside class="sidebar">
-      <h2 class="logo">Yuna AI</h2>
-      <nav class="sidebar-section">
-        <h3>Menu</h3>
-        <ul>
-          <li class="active"><i class="fas fa-terminal"></i> Playground</li>
-          <li><i class="fas fa-history"></i> History</li>
-          <li><i class="fas fa-cog"></i> Settings</li>
-        </ul>
-        <div class="persona-dropdown">
-          <label for="personaSelect"
-            ><i class="fas fa-user-circle"></i> Persona Selection</label
-          >
-          <select id="personaSelect" class="persona-select">
-            <option value="default">Default Assistant</option>
-            <option value="professional">Professional</option>
-            <option value="friendly">Friendly</option>
-            <option value="technical">Technical Expert</option>
-            <option value="creative">Creative Writer</option>
-          </select>
-        </div>
-      </nav>
-      <div class="profile-card compact">
+      <div class="sidebar-content">
+        <h2 class="logo">Yuna AI</h2>
+        <nav class="sidebar-section">
+          <h3>Menu</h3>
+          <ul>
+            <li class="active"><i class="fas fa-terminal"></i> Playground</li>
+            <li><i class="fas fa-history"></i> History</li>
+            <li><i class="fas fa-cog"></i> Settings</li>
+          </ul>
+          <div class="persona-dropdown">
+            <label for="personaSelect"
+              ><i class="fas fa-user-circle"></i> Persona Selection</label
+            >
+            <select id="personaselect" class="persona-select">
+              <option value="default">Default Assistant</option>
+              <option value="professional">Professional</option>
+              <option value="friendly">Friendly</option>
+              <option value="technical">Technical Expert</option>
+              <option value="creative">Creative Writer</option>
+            </select>
+          </div>
+        </nav>
+      </div>
+      <div class="profile-card">
         <img src="https://i.pravatar.cc/120" alt="profile" />
         <div>
-          <p class="username">Anamika</p>
+          <p class="username">{{username}}</p>
           <span class="role">User</span>
         </div>
+        <button class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
       </div>
     </aside>
 

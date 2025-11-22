@@ -3,8 +3,10 @@ const resetBtn = document.getElementById("resetBtn");
 const recordBtn = document.getElementById("recordBtn");
 const userInput = document.getElementById("userInput");
 const chatArea = document.getElementById("chatArea");
+const personaSelect = document.getElementById("personaSelect");
 
 const API_URL = "http://localhost:8000/speak";
+let selectedPersona = "default";
 
 // ---- Button events ----
 sendBtn.addEventListener("click", () => sendMessage());
@@ -13,6 +15,11 @@ userInput.addEventListener("keypress", (e) => {
 });
 resetBtn.addEventListener("click", () => (chatArea.innerHTML = ""));
 
+// ---- Persona Selection ----
+personaSelect.addEventListener("change", (e) => {
+  selectedPersona = e.target.value;
+  console.log("Persona selected:", selectedPersona);
+});
 
 // ---- Speech Recognition ----
 let recognition;
@@ -62,7 +69,7 @@ async function sendMessage(textOverride) {
     const res = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({ text, persona: selectedPersona }),
     });
 
     if (!res.ok) {
@@ -76,10 +83,10 @@ async function sendMessage(textOverride) {
       updateLastBotMessage("Yuna says:");
       appendBotMessage("Yuna says:", data.audio_url);
     } else {
-      updateLastBotMessage("⚠ No audio returned from backend.");
+      updateLastBotMessage("No audio returned from backend.");
     }
   } catch (err) {
-    updateLastBotMessage("❌ Error communicating with backend");
+    updateLastBotMessage("Error communicating with backend");
     console.error("Fetch error:", err);
   }
 }

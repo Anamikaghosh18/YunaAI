@@ -4,7 +4,7 @@ from ..database import SessionLocal
 from ..models import User
 from ..auth_utils import hash_password, verify_password
 from pydantic import BaseModel
-from app.auth_utils import is_valid_email
+from ..auth_utils import is_valid_email
 
 
 router = APIRouter()

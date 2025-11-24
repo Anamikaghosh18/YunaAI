@@ -1,0 +1,31 @@
+/* playground */
+
+.flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.gap-10 {
+  gap: 10px;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease;
+}
+.animate-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+
+/* signup  */
+.hidden { display: none; }
+.text-center { text-align: center; }
+.flex { display: flex; }
+.flex-column { flex-direction: column; }
+.mt-2 { margin-top: 8px; }
+.mt-4 { margin-top: 16px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-4 { margin-bottom: 16px; }
+.rounded { border-radius: 8px; }
+.bg-primary { background: #1e293b; }

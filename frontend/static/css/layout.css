@@ -1,0 +1,85 @@
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: #111418;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.sidebar-content {
+  padding: 20px;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 260px;
+}
+
+/* Topbar */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 260px;
+  right: 0;
+  z-index: 20;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  background: #0d1117;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.topbar h1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.topbar .subtitle {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.secondary-btn {
+  background: #1e293b;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.secondary-btn:hover {
+  background: #334155;
+}
+
+/* Workspace */
+.workspace {
+  margin-top: 58px;
+  height: calc(100vh - 58px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Center card on page */
+.signup-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
